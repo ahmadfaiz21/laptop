@@ -68,7 +68,7 @@
                     <div class="card">
                         <div class="card-header">Add Brand</div>
                             <div class="card-body">
-                                <form action="{{route('store.category')}}" method="POST">
+                                <form action="{{route('store.brand')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Brand Name</label>
@@ -82,7 +82,7 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Brand Name</label>
+                                        <label for="exampleInputEmail1" class="form-label">Brand Image</label>
                                         <input type="file" name="brand_image" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                                         
 

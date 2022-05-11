@@ -19,6 +19,7 @@ class CreateBrandsTable extends Migration
             $table->string('brand_iamage');
             $table->timestamps();
         });
+        
     }
 
     /**
