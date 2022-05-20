@@ -18,7 +18,7 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">Edit Category</div>
-                            <dev class="card-body">
+                            <div class="card-body">
                                 <form action="{{ url('category/update/'.$categories->id) }}" method="POST">
                                 @csrf
                                     <div class="mb-3">
@@ -34,7 +34,7 @@
                                     
                                     <button type="submit" class="btn btn-primary">Update Category</button>
                                 </form>
-                            </dev>
+                            </div>
                     </div>
                 </div>
 
