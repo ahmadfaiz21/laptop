@@ -22,11 +22,11 @@ class BrandController extends Controller
         ],
         [
             'brand_name.required' => 'Please Input Brand Name',
-            'brand_name.max' => 'Brand longer than 4 charecter',
+            'brand_name.min' => 'Brand longer than 4 charecter',
             
         ]
         );
-
+        
         $brand_image = $request->file('brand_image');
         
         $name_gen = hexdec(uniqid());//create unique id for image
@@ -34,7 +34,7 @@ class BrandController extends Controller
         $img_name = $name_gen.'.'.$img_ext;
         $up_location = 'image/brand/';
         $last_img = $up_location.$img_name;
-        $brand_image->move($up_location.$img_name);
+        $brand_image->move($up_location,$img_name);
 
         Brand::insert([
             'brand_name'=> $request->brand_name,
@@ -44,5 +44,12 @@ class BrandController extends Controller
         ]);
 
         return Redirect()->back()->with('success','Brand Inserted Successfully');
+    }
+
+    public function Edit($id){
+
+        $brands = Brand::find($id);
+        return view('admin.brand.edit',compact('brands'));
+
     }
 }
