@@ -71,22 +71,39 @@ class BrandController extends Controller
 
         $brand_image = $request->file('brand_image');
         
-        $name_gen = hexdec(uniqid());//create unique id for image
-        $img_ext = strtolower($brand_image->getClientOriginalExtension());
-        $img_name = $name_gen.'.'.$img_ext;
-        $up_location = 'image/brand/';
-        $last_img = $up_location.$img_name;
-        $brand_image->move($up_location,$img_name);
+        if($brand_image){
 
-        unlink($old_image);
+            $name_gen = hexdec(uniqid());//create unique id for image
+            $img_ext = strtolower($brand_image->getClientOriginalExtension());
+            $img_name = $name_gen.'.'.$img_ext;
+            $up_location = 'image/brand/';
+            $last_img = $up_location.$img_name;
+            $brand_image->move($up_location,$img_name);
+    
+            unlink($old_image);
+    
+            Brand::find($id)->update([
+                'brand_name'=> $request->brand_name,
+                'brand_image'=> $last_img,      
+                'created_at'=> Carbon::now(),
+                
+            ]);
+    
+            return Redirect()->back()->with('success','Brand Updated Successfully');
 
-        Brand::find($id)->update([
-            'brand_name'=> $request->brand_name,
-            'brand_image'=> $last_img,      
-            'created_at'=> Carbon::now(),
-            
-        ]);
+        }else{
 
-        return Redirect()->back()->with('success','Brand Updated Successfully');
+            Brand::find($id)->update([
+                'brand_name'=> $request->brand_name,      
+                'created_at'=> Carbon::now(),
+                
+            ]);
+    
+            return Redirect()->back()->with('success','Brand Updated Successfully');
+
+
+        }
+
+        
     }
 }
